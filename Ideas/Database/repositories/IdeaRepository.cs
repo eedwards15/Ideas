@@ -66,7 +66,7 @@ namespace Database.repositories
         //update
         public async Task Update(Idea idea)
         {
-            _context.Entry(idea).State = EntityState.Modified;
+            _context.Ideas.Update(idea);
             await _context.SaveChangesAsync();
         }
 
