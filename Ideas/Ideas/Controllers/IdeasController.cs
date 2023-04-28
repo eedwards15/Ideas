@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Database.tables;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Database.repositories; 
-
+using Core.Database; 
+using Core.Repository; 
 
 namespace Controller
 {
@@ -45,9 +45,10 @@ namespace Controller
         [HttpPut("{id}")]
         public async Task Update(int id, Idea idea)
         {
+            //validate id
+            if (id != idea.Id) return;
             await _ideaRepository.Update(idea);
         }
-
 
     }
 }

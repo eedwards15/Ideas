@@ -1,24 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Database.tables;
+
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Database.repositories
 {
 
-    public interface IIdeaRepository
-    {
-        Task<List<Idea>> GetAll();
-        Task<Idea> GetById(int id);
-        Task<Idea> Create(Idea idea);
-        Task Delete(int id);
-        Task Update(Idea idea);
-    }
-
-
-
-    public class IdeaRepository : IIdeaRepository
+    public class IdeaRepository : Core.Repository.IIdeaRepository
     {
         private readonly IdeaDatabaseContext _context;
 
@@ -28,20 +17,20 @@ namespace Database.repositories
         }
 
 
-        public async Task<List<Idea>> GetAll()
+        public async Task<List<Core.Database.Idea>> GetAll()
         {
             return await _context.Ideas.ToListAsync();
         }
 
         //replace with first or default 
 
-        public async Task<Idea> GetById(int id)
+        public async Task<Core.Database.Idea> GetById(int id)
         {
             return await _context.Ideas.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         
-        public async Task<Idea> Create(Idea idea)
+        public async Task<Core.Database.Idea> Create(Core.Database.Idea idea)
         {
             _context.Ideas.Add(idea);
             await _context.SaveChangesAsync();
@@ -64,7 +53,7 @@ namespace Database.repositories
 
 
         //update
-        public async Task Update(Idea idea)
+        public async Task Update(Core.Database.Idea idea)
         {
             _context.Ideas.Update(idea);
             await _context.SaveChangesAsync();
