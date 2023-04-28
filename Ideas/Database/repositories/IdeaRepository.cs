@@ -4,7 +4,7 @@ using Database.tables;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Database.repostiroies
+namespace Database.repositories
 {
 
     public interface IIdeaRepository

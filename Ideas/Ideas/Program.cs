@@ -1,5 +1,6 @@
 using Database;
 using Microsoft.EntityFrameworkCore;
+using Database.repositories; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddTransient<IIdeaRepository, IdeaRepository>();
 
 
 string connectionString = builder.Configuration.GetConnectionString("TodoDb");
@@ -42,4 +43,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+//Set port if defined in appsettings.json 
+var port = builder.Configuration.GetValue<int>("Port");
+
+if (port > 0)
+{
+    app.Run($"http://0.0.0.0:{port}");
+}
+else{
+    app.Run();
+
+}

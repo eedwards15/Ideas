@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Database.tables;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Database.repostiroies; 
+using Database.repositories; 
 
 
 namespace Controller
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class IdeasController
     {
         private readonly IIdeaRepository _ideaRepository;
