@@ -16,20 +16,16 @@ namespace Database.repositories
             _context = context;
         }
 
-
         public async Task<List<Core.Database.Idea>> GetAll()
         {
             return await _context.Ideas.ToListAsync();
         }
 
-        //replace with first or default 
-
         public async Task<Core.Database.Idea> GetById(int id)
         {
             return await _context.Ideas.FirstOrDefaultAsync(x => x.Id == id);
         }
-
-        
+  
         public async Task<Core.Database.Idea> Create(Core.Database.Idea idea)
         {
             _context.Ideas.Add(idea);
@@ -37,8 +33,6 @@ namespace Database.repositories
             return idea;
         }
 
-
-        //delete 
         public async Task Delete(int id)
         {
             var ideaToDelete = await _context.Ideas.FirstOrDefaultAsync(x => x.Id == id);
@@ -51,8 +45,6 @@ namespace Database.repositories
             await _context.SaveChangesAsync();
         }
 
-
-        //update
         public async Task Update(Core.Database.Idea idea)
         {
             _context.Ideas.Update(idea);
