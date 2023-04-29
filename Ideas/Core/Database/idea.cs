@@ -1,7 +1,7 @@
-using System; 
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Database.tables
+namespace Core.Database
 {
     public class Idea
     {

@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Database.tables;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Database.repositories; 
-
+using Core.Database;
+using Core.Repository;
+using Core.Dtos;
+using BusinessLogic.Mappers;
 
 namespace Controller
 {
@@ -19,21 +17,27 @@ namespace Controller
         }
         
         [HttpGet]
-        public async Task<List<Idea>> GetAll()
+        public async Task<List<IdeaViewModel>> GetAll()
         {
-            return await _ideaRepository.GetAll();
+            var results =  await _ideaRepository.GetAll();
+            var mappedResults = results.MapTo();
+            return mappedResults;
         }
 
         [HttpGet("{id}")]
-        public async Task<Idea> GetById(int id)
+        public async Task<IdeaViewModel> GetById(int id)
         {
-            return await _ideaRepository.GetById(id);
+            var result =  await _ideaRepository.GetById(id);
+            var mapResult = result.MapTo(); 
+            return mapResult;
         }
 
         [HttpPost]
-        public async Task<Idea> Create(Idea idea)
+        public async Task<IdeaViewModel> Create(IdeaViewModel idea)
         {
-            return await _ideaRepository.Create(idea);
+            var mappedIdea = idea.MapToIdea();
+            var result =  await _ideaRepository.Create(mappedIdea);
+            return result.MapTo();
         }
 
         [HttpDelete("{id}")]
@@ -43,11 +47,13 @@ namespace Controller
         }
 
         [HttpPut("{id}")]
-        public async Task Update(int id, Idea idea)
+        public async Task Update(int id, IdeaViewModel idea)
         {
-            await _ideaRepository.Update(idea);
-        }
+            if (id != idea.Id) return;
+            var mappedIdea = idea.MapToIdea();
+            await _ideaRepository.Update(mappedIdea);
 
+        }
 
     }
 }

@@ -11,7 +11,7 @@ namespace Database
     {
         public IdeaDatabaseContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Database.tables.Idea> Ideas { get; set; }
+        public DbSet<Core.Database.Idea> Ideas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
