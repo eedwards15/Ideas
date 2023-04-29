@@ -8,8 +8,7 @@ namespace BusinessLogic.Mappers
 {
     public static class IdeaViewModelMapper
     {
-
-        public static Core.Dtos.IdeaViewModel  MapTo(this Core.Database.Idea ideaViewModel)
+        public static Core.Dtos.IdeaViewModel MapTo(this Core.Database.Idea ideaViewModel)
         {
             return new Core.Dtos.IdeaViewModel()
             {
@@ -26,7 +25,5 @@ namespace BusinessLogic.Mappers
         {
             return ideaViewModels.Select(MapTo).ToList();
         }
-
-
     }
 }
